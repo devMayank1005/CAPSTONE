@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sandbox-server
+  labels:
+    app: sandbox-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sandbox-server
+  template:
+    metadata:
+      labels:
+        app: sandbox-server
+    spec:
+      containers:
+        - name: sandbox-server
+          image: sandbox-server:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "200Mi"
+              cpu: "250m"
+            limits:
+              memory: "400Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+          readinessProbe:
+            httpGet:
+              path: /api/sandbox/health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/sandbox/health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 20

@@ -1,4 +1,4 @@
-import { k8sApi } from "./config";
+import { k8sApi } from "./config.js";
 
 export async function createPods(sandboxId) {
     const podManifest = {

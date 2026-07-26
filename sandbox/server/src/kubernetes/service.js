@@ -1,4 +1,4 @@
-import { k8sApi } from "./config";
+import { k8sApi } from "./config.js";
 
 export async function createService(sandboxId) {
 	const serviceManifest = {
@@ -17,8 +17,8 @@ export async function createService(sandboxId) {
 			ports: [
 				{
 					protocol: "TCP",
-					port: 3000,
-					targetPort: 5173,
+					port: 80,
+					targetPort: 3000,
 				},
 			],
 			type: "ClusterIP",

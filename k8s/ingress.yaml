@@ -16,3 +16,15 @@ spec:
                 name: sandbox-server
                 port:
                   number: 80
+
+
+    - host: "*.preview.localhost"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: router-service
+                port:
+                  number: 80

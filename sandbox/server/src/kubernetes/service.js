@@ -26,7 +26,10 @@ export async function createService(sandboxId) {
 	};
 
 	try {
-		const response = await k8sApi.createNamespacedService("default", serviceManifest);
+		const response = await k8sApi.createNamespacedService({
+			namespace: "default",
+			body: serviceManifest,
+		});
 		console.log(`Service created: ${response.body.metadata.name}`);
 	} catch (error) {
 		console.error("Error creating service:", error);
